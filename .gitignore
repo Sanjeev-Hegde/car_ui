@@ -1,0 +1,16 @@
+# ignore the npm installed modules
+/node_modules
+
+# ignore the idea files
+.idea
+
+**/chain_db/*
+.node*
+
+# no need to store any of the uploaded files to our repo
+/uploads
+
+bower_components/
+
+# other unneeded files in our repo
+.DS_Store
