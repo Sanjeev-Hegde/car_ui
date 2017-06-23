@@ -9,139 +9,39 @@
  */
 angular.module('CarUI')
   .controller('MainCtrl', function ($scope,$http) {
-    $scope.awesomeThings = "Yo - APpp";
-    $scope.upflag = false;
-    $scope.leftflag = false;
-    $scope.rightflag = false;
-    $scope.downflag = false;
-    document.onkeydown = function(e) {
-        switch (e.keyCode) {
-            case 37:
-                //alert('left');
-                if(!$scope.leftflag){
-                  $scope.leftKeyDown();
-                  $scope.leftflag = true;
-                  $scope.$apply();
-                }
-                break;
-            case 38:
-                //alert('up');
-                  if(!$scope.upflag){
-                    $scope.upKeyDown();
-                    $scope.upflag = true;
-                    $scope.$apply();
-                  }
-                  //console.log($scope.upflag);
-                break;
-            case 39:
-                //alert('right');
-                if(!$scope.rightflag){
-                  $scope.rightKeyDown();
-                  $scope.rightflag = true;
-                  $scope.$apply();
-                }
 
-                break;
-            case 40:
-                //alert('down');
-                if(!$scope.downflag){
-                  $scope.downKeyDown();
-                  $scope.downflag = true;
-                  $scope.$apply();
-                }
+    function getKeys() {
+      // $http.get("/etc_api/test/getKeys")
+      //  .then(function(response) {
+      //      console.log(response);
+      //      $scope.rowCollection = response;
+      // });
+      console.log("fetching keys");
+    }
+    getKeys();
 
-                break;
-        }
-     };
-     document.onkeyup = function(e) {
-         switch (e.keyCode) {
-             case 37:
-                 //alert('left');
-                $scope.leftKeyUp();
-                $scope.leftflag = false;
-                $scope.$apply();
-                 break;
-             case 38:
-                 //alert('up');
-                 $scope.upKeyUp();
-                 $scope.upflag = false;
-                 $scope.$apply();
-                 break;
-             case 39:
-                 //alert('right');
-                 $scope.rightKeyUp();
-                $scope.rightflag = false;
-                $scope.$apply();
-                 break;
-             case 40:
-                 //alert('down');
-                 $scope.downKeyUp();
-                 $scope.downflag = false;
-                 $scope.$apply();
-                 break;
-         }
-      };
-      //Left Button
-      $scope.leftKeyDown = function(){
-        //console.log("leftKeyDown");
-        $http.get("/truck_api/test/move_left")
+    $scope.rowCollection = [
+            {userId: '4baa56f1230048567300485c', userName: 'Sanjeev Hegde', address: '0xe99cc1176d64139bd6c20afe675911566db14a0a', keyFileName: 'file1'},
+            {userId: 'tbaa46f1230048567300485c', userName: 'Akshay Naik', address: '0xbdedb0f41c79e4cf40dfef931bd5a5d6ab059325', keyFileName: 'file2'},
+            {userId: 'jbaahvf1230048567300485c', userName: 'Mike', address: '0xa1eb012a4e53e97f9908a1d5b604c1d65ed68ea5', keyFileName: 'file3'}
+    ];
+
+    $scope.addUser = function(){
+        console.log("closing");
+        console.log($scope.name,$scope.password);
+        $http.post("/etc_api/test/addUser",{userName:"userName","password":"password"})
          .then(function(response) {
              console.log(response);
-         });
-      };
-      $scope.leftKeyUp= function(){
-         //console.log("leftKeyUp");
-         $http.get("/truck_api/test/stop_horizontal_movement")
-          .then(function(response) {
-              console.log(response);
-          });
-      };
+             getKeys();
+        });
+        angular.element('#myModal').modal('hide');
+    };
 
-      //Up Button
-      $scope.upKeyDown = function(){
-        //console.log("upKeyDown");
-            $http.get("/truck_api/test/move_forward")
-             .then(function(response) {
-                 console.log(response);
-             });
-      };
-      $scope.upKeyUp= function(){
-        // console.log("upKeyUp");
-        $http.get("/truck_api/test/stop_vertical_movement")
-         .then(function(response) {
-             console.log(response);
-         });
-      };
-
-      //Right Button
-      $scope.rightKeyDown = function(){
-        //console.log("rightKeyDown");
-        $http.get("/truck_api/test/move_right")
-         .then(function(response) {
-             console.log(response);
-         });
-      };
-      $scope.rightKeyUp= function(){
-         //console.log("rightKeyUp");
-         $http.get("/truck_api/test/stop_horizontal_movement")
-          .then(function(response) {
-              console.log(response);
-          });
-      };
-
-      //down Button
-      $scope.downKeyDown = function(){
-        //console.log("downKeyDown");
-        $http.get("/truck_api/test/move_backward")
-         .then(function(response) {
-             console.log(response);
-         });
-      };
-      $scope.downKeyUp= function(){
-        // console.log("downKeyUp");
-        $http.get("/truck_api/test/stop_vertical_movement")
-         .then(function(response) {
-             console.log(response);
-         });
-      };
+      // $scope.downKeyUp= function(){
+      //   // console.log("downKeyUp");
+      //   $http.get("/truck_api/test/stop_vertical_movement")
+      //    .then(function(response) {
+      //        console.log(response);
+      //    });
+      // };
   });
